@@ -51,7 +51,7 @@ export function AIReadiness() {
   return (
     <section
       id="ai-readiness"
-      className="scroll-mt-20 border-t border-border/60 py-20"
+      className="scroll-mt-20 border-t border-border/60 py-14"
       aria-labelledby="ai-readiness-title"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">

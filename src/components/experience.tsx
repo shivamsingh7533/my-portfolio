@@ -13,7 +13,7 @@ const trustSignals = [
 
 export function Experience() {
   return (
-    <section id="experience" className="scroll-mt-20 border-t border-border/60 py-20">
+    <section id="experience" className="scroll-mt-20 border-t border-border/60 py-14">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
           id="experience"

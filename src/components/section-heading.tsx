@@ -13,7 +13,7 @@ export function SectionHeading({
   id: string;
 }) {
   return (
-    <Reveal className="mb-10">
+    <Reveal className="mb-8">
       <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
         {eyebrow}
       </p>

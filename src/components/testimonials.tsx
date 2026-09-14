@@ -8,7 +8,7 @@ export function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="scroll-mt-20 border-t border-border/60 bg-card/30 py-20"
+      className="scroll-mt-20 border-t border-border/60 bg-card/30 py-14"
       aria-labelledby="testimonials-title"
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6">

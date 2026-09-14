@@ -8,7 +8,7 @@ export function Insights() {
   return (
     <section
       id="insights"
-      className="scroll-mt-20 border-t border-border/60 py-20"
+      className="scroll-mt-20 border-t border-border/60 py-14"
       aria-labelledby="insights-title"
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
@@ -21,7 +21,7 @@ export function Insights() {
           />
           <Link
             href="/insights"
-            className="mb-10 inline-flex items-center gap-1.5 text-sm font-medium text-primary underline-offset-4 hover:underline"
+            className="mb-8 inline-flex items-center gap-1.5 text-sm font-medium text-primary underline-offset-4 hover:underline"
           >
             All insights <ArrowRight className="size-4" aria-hidden="true" />
           </Link>

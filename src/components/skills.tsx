@@ -7,7 +7,7 @@ const groupIcons = [Rocket, Cpu, Database];
 
 export function Skills() {
   return (
-    <section id="skills" className="scroll-mt-20 border-t border-border/60 bg-card/30 py-20">
+    <section id="skills" className="scroll-mt-20 border-t border-border/60 bg-card/30 py-14">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
           id="skills"

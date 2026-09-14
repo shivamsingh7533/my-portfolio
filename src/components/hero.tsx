@@ -23,7 +23,7 @@ export function Hero() {
           backgroundSize: "44px 44px",
         }}
       />
-      <div className="relative mx-auto max-w-6xl px-4 pb-16 pt-20 sm:px-6 sm:pt-28">
+      <div className="relative mx-auto max-w-6xl px-4 pb-12 pt-16 sm:px-6 sm:pt-24">
         <div className="max-w-3xl">
           <div className="mb-5 flex flex-wrap items-center gap-2">
             <Badge className="border-primary/30 bg-primary/10 text-primary">
@@ -80,7 +80,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="mt-14 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <div className="rounded-xl border border-border/70 bg-card/50 p-4">
             <GraduationCap className="mb-3 size-5 text-primary" aria-hidden="true" />
             <p className="text-sm font-semibold">{profile.education.degree}</p>

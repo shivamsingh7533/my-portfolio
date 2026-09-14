@@ -21,7 +21,7 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="scroll-mt-20 border-t border-border/60 py-20">
+    <section id="contact" className="scroll-mt-20 border-t border-border/60 py-14">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="relative overflow-hidden rounded-2xl border border-primary/25 bg-gradient-to-br from-primary/15 via-card/60 to-card/40 p-8 sm:p-12">
           <SectionHeading

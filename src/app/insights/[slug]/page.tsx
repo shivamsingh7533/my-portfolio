@@ -58,7 +58,7 @@ export default async function PostPage({
         { name: post.title, href: `/insights/${post.slug}` },
       ])} />
 
-      <article className="mx-auto max-w-3xl px-4 py-14 sm:px-6 sm:py-16">
+      <article className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-12">
         <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
           <span className="inline-flex items-center gap-1.5">
             <CalendarDays className="size-3.5" aria-hidden="true" />

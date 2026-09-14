@@ -46,7 +46,7 @@ export async function GithubStrip() {
   return (
     <section
       id="github"
-      className="border-t border-border/60 py-20"
+      className="border-t border-border/60 py-14"
       aria-labelledby="github-title"
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
@@ -61,7 +61,7 @@ export async function GithubStrip() {
             href={siteConfig.github}
             target="_blank"
             rel="noreferrer noopener"
-            className="mb-10 inline-flex items-center gap-1.5 text-sm font-medium text-primary underline-offset-4 hover:underline"
+            className="mb-8 inline-flex items-center gap-1.5 text-sm font-medium text-primary underline-offset-4 hover:underline"
           >
             <GitHubIcon className="size-4" aria-hidden="true" />
             View all repos

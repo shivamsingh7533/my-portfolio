@@ -33,7 +33,7 @@ export default function InsightsPage() {
         ])}
       />
 
-      <section className="mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-20">
+      <section className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-14">
         <SectionHeading
           id="insights"
           eyebrow="Insights"

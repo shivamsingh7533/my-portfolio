@@ -5,7 +5,7 @@ import { profile } from "@/data/profile";
 
 export function About() {
   return (
-    <section id="about" className="scroll-mt-20 py-20">
+    <section id="about" className="scroll-mt-20 py-14">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
           id="about"

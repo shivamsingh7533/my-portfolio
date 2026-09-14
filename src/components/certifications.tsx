@@ -9,7 +9,7 @@ export function Certifications() {
   return (
     <section
       id="certifications"
-      className="scroll-mt-20 border-t border-border/60 bg-card/30 py-20"
+      className="scroll-mt-20 border-t border-border/60 bg-card/30 py-14"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
