@@ -3,8 +3,7 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
-const TRACKER_ENABLED = process.env.NEXT_PUBLIC_TRACKER_ENABLED === "1";
-const TRACKER_KEY = process.env.NEXT_PUBLIC_TRACKER_KEY ?? "";
+const TRACK_IN_PRODUCTION = true;
 
 const REFERRER_KEY = "shivam-tracker-ref";
 
@@ -18,7 +17,7 @@ function sendBeacon(payload: Record<string, string>) {
   lastFired.set(dedupeKey, now);
   if (lastFired.size > 64) lastFired.clear();
 
-  const body = JSON.stringify({ ...payload, key: TRACKER_KEY });
+  const body = JSON.stringify(payload);
   try {
     navigator.sendBeacon("/api/telegram", new Blob([body], { type: "application/json" }));
   } catch {
@@ -35,7 +34,8 @@ export function Tracker() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (!TRACKER_ENABLED || !pathname) return;
+    if (!TRACK_IN_PRODUCTION || process.env.NODE_ENV !== "production") return;
+    if (!pathname) return;
 
     let ref: string | undefined;
     try {
@@ -60,18 +60,22 @@ export function Tracker() {
       ? "mobile"
       : "desktop";
 
-    sendBeacon({ page: pathname, device, ...(ref ? { ref } : {}) });
+    sendBeacon({
+      page: pathname,
+      device,
+      ...(ref ? { ref } : {}),
+    });
   }, [pathname]);
 
   useEffect(() => {
-    if (!TRACKER_ENABLED) return;
+    if (!TRACK_IN_PRODUCTION || process.env.NODE_ENV !== "production") return;
 
     const onClick = (event: MouseEvent) => {
       const target = event.target as HTMLElement | null;
       const tracked = target?.closest?.("[data-track]") as HTMLElement | null;
       if (!tracked) return;
       const action = tracked.getAttribute("data-track");
-      if (!action || !TRACKER_KEY) return;
+      if (!action) return;
       sendBeacon({ action, page: window.location.pathname });
     };
 

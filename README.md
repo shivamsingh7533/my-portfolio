@@ -51,12 +51,12 @@ Setup (one time, ~3 min):
    | --- | --- |
    | `TELEGRAM_BOT_TOKEN` | token from BotFather (private — never expose to the client) |
    | `TELEGRAM_CHAT_ID` | your numeric chat id (private) |
-   | `NEXT_PUBLIC_TRACKER_KEY` | any long random string — guards the `/api/telegram` endpoint from spam |
-   | `NEXT_PUBLIC_TRACKER_ENABLED` | `1` to turn the beacon on |
 
-4. Redeploy. You'll receive messages like `🌐 New visit — /projects/base-mind · Mobile · via Google` and `🎯 Demo: BaseMind clicked — /projects/base-mind`.
+   **No other vars are required.** The tracker activates in production builds automatically.
 
-Notes: the token never reaches the browser; the endpoint returns `401` without a matching key and `503` silently if not configured. Events are fire-and-forget via `navigator.sendBeacon`, so no page-speed impact and no unhandled failures.
+4. Delete any stale `NEXT_PUBLIC_TRACKER_*` env vars, then **Redeploy**. You'll receive messages like `🌐 New visit — /projects/base-mind · Mobile · via Google` and `🎯 Demo: BaseMind clicked — /projects/base-mind`.
+
+Notes: the token never reaches the browser; the endpoint returns `503` if not configured and `429` if a single IP floods it (30 requests/min). Events are fire-and-forget via `navigator.sendBeacon`, so no page-speed impact and no unhandled failures.
 
 ## Deploy
 
