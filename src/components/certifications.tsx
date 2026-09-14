@@ -42,7 +42,7 @@ export function Certifications() {
                 </div>
               </CardContent>
               <CardFooter>
-<Button variant="outline" render={<a href={c.url} target="_blank" rel="noreferrer noopener" />}>
+<Button variant="outline" render={<a href={c.url} target="_blank" rel="noreferrer noopener" data-track="Certificate" />}>
                   View certificate <ExternalLink className="size-4" aria-hidden="true" />
                 </Button>
               </CardFooter>

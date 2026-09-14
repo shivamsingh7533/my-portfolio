@@ -54,10 +54,10 @@ export function Hero() {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Button size="lg" render={<a href="#projects" />}>
+            <Button size="lg" render={<a href="#projects" data-track="View work" />}>
               View my work <ArrowRight className="size-4" aria-hidden="true" />
             </Button>
-            <Button size="lg" variant="outline" render={<a href="#contact" />}>
+            <Button size="lg" variant="outline" render={<a href="#contact" data-track="Contact" />}>
               Contact me
             </Button>
           </div>
@@ -73,6 +73,7 @@ export function Hero() {
                 href={href}
                 target={href.startsWith("http") ? "_blank" : undefined}
                 rel={href.startsWith("http") ? "noreferrer noopener" : undefined}
+                data-track={label}
                 className="group flex items-center gap-2 rounded-full border border-border/80 bg-card/40 px-3.5 py-1.5 text-sm text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
               >
                 <Icon className="size-4 text-primary" aria-hidden="true" />

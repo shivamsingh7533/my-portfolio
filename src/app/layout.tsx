@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { BackToTop } from "@/components/back-to-top";
+import { Tracker } from "@/components/tracker";
 import { siteConfig, seoTags } from "@/data/site";
 import "./globals.css";
 
@@ -87,6 +88,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <Toaster position="bottom-right" />
             <Analytics />
             <SpeedInsights />
+            <Tracker />
           </TooltipProvider>
         </ThemeProvider>
       </body>

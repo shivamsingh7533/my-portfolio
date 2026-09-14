@@ -32,17 +32,17 @@ export function Contact() {
           />
 
           <div className="grid gap-4 sm:grid-cols-3">
-            <Button size="lg" variant="secondary" render={<a href={`mailto:${siteConfig.email}?subject=Opportunity%20for%20Shivam%20Kumar`} />}>
+            <Button size="lg" variant="secondary" render={<a href={`mailto:${siteConfig.email}?subject=Opportunity%20for%20Shivam%20Kumar`} data-track="Email" />}>
               <MailIcon className="size-4" aria-hidden="true" />
               {siteConfig.email}
             </Button>
 
-            <Button size="lg" variant="outline" render={<a href={siteConfig.linkedin} target="_blank" rel="noreferrer noopener" />}>
+            <Button size="lg" variant="outline" render={<a href={siteConfig.linkedin} target="_blank" rel="noreferrer noopener" data-track="LinkedIn" />}>
               <LinkedInIcon className="size-4" aria-hidden="true" />
               LinkedIn
             </Button>
 
-            <Button size="lg" variant="outline" render={<a href={siteConfig.github} target="_blank" rel="noreferrer noopener" />}>
+            <Button size="lg" variant="outline" render={<a href={siteConfig.github} target="_blank" rel="noreferrer noopener" data-track="GitHub" />}>
               <GitHubIcon className="size-4" aria-hidden="true" />
               GitHub
             </Button>

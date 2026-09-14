@@ -75,13 +75,13 @@ export function Projects() {
               </CardContent>
 
               <CardFooter className="flex flex-wrap items-center gap-2">
-                <Button render={<Link href={`/projects/${project.slug}`} />}>
+                <Button render={<Link href={`/projects/${project.slug}`} data-track={`Case study: ${project.name}`} />}>
                   Case study <ArrowRight className="size-4" aria-hidden="true" />
                 </Button>
-                <Button variant="outline" render={<a href={project.demo} target="_blank" rel="noreferrer noopener" />}>
+                <Button variant="outline" render={<a href={project.demo} target="_blank" rel="noreferrer noopener" data-track={`Demo: ${project.name}`} />}>
                   Live demo <ExternalLink className="size-4" aria-hidden="true" />
                 </Button>
-                <Button variant="ghost" render={<a href={project.repo} target="_blank" rel="noreferrer noopener" />}>
+                <Button variant="ghost" render={<a href={project.repo} target="_blank" rel="noreferrer noopener" data-track={`Repo: ${project.name}`} />}>
                   <GitHubIcon className="size-4" aria-hidden="true" />
                   Code
                 </Button>

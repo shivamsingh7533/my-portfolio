@@ -48,7 +48,7 @@ export function SiteHeader() {
               {l.label}
             </Link>
           ))}
-          <Button size="sm" className="ml-2" render={<a href="#contact" />}>
+          <Button size="sm" className="ml-2" render={<a href="#contact" data-track="Hire me" />}>
             Hire me
           </Button>
           <ThemeToggle className="ml-1" />
@@ -87,7 +87,7 @@ export function SiteHeader() {
               </li>
             ))}
             <li className="pt-2">
-<Button className="w-full" render={<a href="#contact" onClick={() => setOpen(false)} />}>
+<Button className="w-full" render={<a href="#contact" data-track="Hire me" onClick={() => setOpen(false)} />}>
               Hire me
             </Button>
             </li>

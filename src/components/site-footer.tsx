@@ -22,6 +22,7 @@ export function SiteFooter() {
               href={siteConfig.github}
               target="_blank"
               rel="noreferrer noopener"
+              data-track="GitHub"
               className="flex size-9 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
               aria-label="GitHub — shivamsingh7533"
             >
@@ -31,6 +32,7 @@ export function SiteFooter() {
               href={siteConfig.linkedin}
               target="_blank"
               rel="noreferrer noopener"
+              data-track="LinkedIn"
               className="flex size-9 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
               aria-label="LinkedIn — Shivam Kumar"
             >
@@ -38,6 +40,7 @@ export function SiteFooter() {
             </a>
             <a
               href={`mailto:${siteConfig.email}`}
+              data-track="Email"
               className="flex size-9 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
               aria-label="Email — sk9529973@gmail.com"
             >

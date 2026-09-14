@@ -35,6 +35,28 @@ Open [http://localhost:3000](http://localhost:3000).
 - AI/SEO ready: JSON-LD, sitemap, robots, OG images, `llms.txt`, agentic-browsing-friendly copy
 - UX polish: light/dark theme toggle, ⌘K command palette, scroll-reveal animations, back-to-top, custom 404
 - Platform: Vercel Analytics + Speed Insights, PWA manifest
+- Live activity: Telegram visitor tracker — page visits and CTA clicks (GitHub, LinkedIn, Demo, Repo) ping your Telegram in real time
+
+## Telegram visitor tracker
+
+Sends a message to your Telegram whenever someone visits the site or clicks an important CTA. No email service needed — just the Telegram Bot API.
+
+Setup (one time, ~3 min):
+
+1. In Telegram, message **@BotFather** → `/newbot` → name it → copy the `123456:ABC-...` token.
+2. Message your new bot once (e.g. `/start`), then message **@userinfobot** → copy your numeric chat id.
+3. Add these environment variables in Vercel → Project → Settings → Environment Variables (and `.env.local` for local dev):
+
+   | Variable | Value |
+   | --- | --- |
+   | `TELEGRAM_BOT_TOKEN` | token from BotFather (private — never expose to the client) |
+   | `TELEGRAM_CHAT_ID` | your numeric chat id (private) |
+   | `NEXT_PUBLIC_TRACKER_KEY` | any long random string — guards the `/api/telegram` endpoint from spam |
+   | `NEXT_PUBLIC_TRACKER_ENABLED` | `1` to turn the beacon on |
+
+4. Redeploy. You'll receive messages like `🌐 New visit — /projects/base-mind · Mobile · via Google` and `🎯 Demo: BaseMind clicked — /projects/base-mind`.
+
+Notes: the token never reaches the browser; the endpoint returns `401` without a matching key and `503` silently if not configured. Events are fire-and-forget via `navigator.sendBeacon`, so no page-speed impact and no unhandled failures.
 
 ## Deploy
 
