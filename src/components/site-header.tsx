@@ -5,14 +5,16 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { cn } from "cn";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { CommandPalette } from "@/components/command-palette";
 import { siteConfig } from "@/data/site";
 
 const navLinks = [
   { href: "#about", label: "About" },
   { href: "#skills", label: "Skills" },
   { href: "#projects", label: "Projects" },
+  { href: "/insights", label: "Insights" },
   { href: "#experience", label: "Experience" },
-  { href: "#certifications", label: "Certifications" },
   { href: "#faq", label: "FAQ" },
 ] as const;
 
@@ -49,6 +51,8 @@ export function SiteHeader() {
           <Button size="sm" className="ml-2" render={<a href="#contact" />}>
             Hire me
           </Button>
+          <ThemeToggle className="ml-1" />
+          <CommandPalette className="ml-1" />
         </nav>
 
         <Button
@@ -86,6 +90,10 @@ export function SiteHeader() {
 <Button className="w-full" render={<a href="#contact" onClick={() => setOpen(false)} />}>
               Hire me
             </Button>
+            </li>
+            <li className="flex items-center justify-end gap-1 pt-1">
+              <ThemeToggle />
+              <CommandPalette />
             </li>
           </ul>
         </nav>

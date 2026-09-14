@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { siteConfig } from "@/data/site";
 import { profile } from "@/data/profile";
+import { projects } from "@/data/projects";
+import { certs } from "@/data/certs";
 import { GitHubIcon, LinkedInIcon, MailIcon } from "@/components/icons";
 
 export function Hero() {
@@ -11,6 +13,15 @@ export function Hero() {
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_0%,rgba(16,185,129,0.14),transparent_70%)]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-[0.35] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, var(--border) 1px, transparent 1px), linear-gradient(to bottom, var(--border) 1px, transparent 1px)",
+          backgroundSize: "44px 44px",
+        }}
       />
       <div className="relative mx-auto max-w-6xl px-4 pb-16 pt-20 sm:px-6 sm:pt-28">
         <div className="max-w-3xl">
@@ -71,7 +82,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="mt-14 grid gap-3 sm:grid-cols-3">
+        <div className="mt-14 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <div className="rounded-xl border border-border/70 bg-card/50 p-4">
             <GraduationCap className="mb-3 size-5 text-primary" aria-hidden="true" />
             <p className="text-sm font-semibold">{profile.education.degree}</p>
@@ -80,17 +91,23 @@ export function Hero() {
             </p>
           </div>
           <div className="rounded-xl border border-border/70 bg-card/50 p-4">
-            <span className="text-2xl font-bold text-primary">2</span>
+            <span className="text-2xl font-bold text-primary">{projects.length}</span>
             <p className="mt-1 text-sm text-muted-foreground">
               Production-grade projects live on Vercel — full-stack & AI SaaS
             </p>
           </div>
+          <div className="rounded-xl border border-border/70 bg-card/50 p-4">
+            <span className="text-2xl font-bold text-primary">{certs.length}</span>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Verified internship & development certificates
+            </p>
+          </div>
           <div className="rounded-xl border border-emerald-500/25 bg-emerald-500/5 p-4">
             <span className="text-sm font-semibold text-emerald-400">
-              AI-ready portfolio
+              {siteConfig.available ? "Available" : "Taking a pause"}
             </span>
             <p className="mt-1 text-sm text-muted-foreground">
-              SEO · AEO · GEO · LLMO · AISEO · EEAT — agentic browsing score 3/3
+              Open to full-stack and AI integration roles — since 2024
             </p>
           </div>
         </div>

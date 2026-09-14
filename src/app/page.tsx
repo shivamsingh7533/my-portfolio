@@ -3,8 +3,11 @@ import { About } from "@/components/about";
 import { Skills } from "@/components/skills";
 import { Projects } from "@/components/projects";
 import { AIReadiness } from "@/components/ai-readiness";
+import { Insights } from "@/components/insights";
 import { Experience } from "@/components/experience";
 import { Certifications } from "@/components/certifications";
+import { Testimonials } from "@/components/testimonials";
+import { GithubStrip } from "@/components/github-strip";
 import { Faq } from "@/components/faq";
 import { Contact } from "@/components/contact";
 import { JsonLd } from "@/components/json-ld";
@@ -22,8 +25,11 @@ export default function HomePage() {
       <Skills />
       <Projects />
       <AIReadiness />
+      <Insights />
+      <GithubStrip />
       <Experience />
       <Certifications />
+      <Testimonials />
       <Faq />
       <Contact />
     </>

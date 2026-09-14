@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+  <title id="title">OasisSpace — real-estate marketplace with AI assistant</title>
+  <desc id="desc">OasisSpace project cover</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#06231c" />
+      <stop offset="0.55" stop-color="#0b3a2e" />
+      <stop offset="1" stop-color="#13553f" />
+    </linearGradient>
+    <radialGradient id="glow" cx="0.2" cy="0.1" r="0.9">
+      <stop offset="0" stop-color="#10b981" stop-opacity="0.5" />
+      <stop offset="1" stop-color="#10b981" stop-opacity="0" />
+    </radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1" />
+    </pattern>
+  </defs>
+  <rect width="1200" height="750" fill="url(#bg)" />
+  <rect width="1200" height="750" fill="url(#glow)" />
+  <rect width="1200" height="750" fill="url(#grid)" />
+  <text x="92" y="120" font-family="ui-sans-serif, system-ui, sans-serif" font-size="34" font-weight="600" letter-spacing="6" fill="#34d399" text-transform="uppercase">Full-Stack Web Platform</text>
+  <text x="90" y="430" font-family="ui-sans-serif, system-ui, sans-serif" font-size="92" font-weight="800" fill="#ecfdf5">OasisSpace</text>
+  <text x="94" y="492" font-family="ui-sans-serif, system-ui, sans-serif" font-size="34" fill="#a7c4b5">AI property assistant, payments, RBAC</text>
+  <text x="92" y="650" font-family="ui-sans-serif, system-ui, sans-serif" font-size="130" fill="#10b981">🏡</text>
+</svg>

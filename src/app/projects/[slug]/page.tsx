@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
@@ -16,7 +17,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import { JsonLd } from "@/components/json-ld";
 import { GitHubIcon } from "@/components/icons";
 import { getProject, projects } from "@/data/projects";
-import { projectSchema } from "@/lib/structured-data";
+import { breadcrumbSchema, projectSchema } from "@/lib/structured-data";
 import { siteConfig } from "@/data/site";
 
 export function generateStaticParams() {
@@ -56,6 +57,14 @@ export default async function ProjectPage({
   return (
     <>
       <JsonLd id={`project-${project.slug}-schema`} data={projectSchema(project)} />
+      <JsonLd
+        id={`project-${project.slug}-breadcrumb`}
+        data={breadcrumbSchema([
+          { name: "Home", href: "/" },
+          { name: "Projects", href: "/#projects" },
+          { name: project.name, href: `/projects/${project.slug}` },
+        ])}
+      />
 
       <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
         <Breadcrumb className="mb-8">
@@ -96,6 +105,15 @@ export default async function ProjectPage({
             Source code
           </Button>
         </div>
+
+        <Image
+          src={project.cover}
+          alt={`${project.name} interface preview`}
+          width={1200}
+          height={750}
+          priority
+          className="mt-8 w-full rounded-2xl border border-border/70 object-cover"
+        />
 
         <div className="mt-8 rounded-xl border border-border/70 bg-card/50 p-6">
           <h2 className="flex items-center gap-2 text-lg font-semibold">

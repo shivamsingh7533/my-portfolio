@@ -82,3 +82,47 @@ export function faqSchema() {
     })),
   };
 }
+
+export function breadcrumbSchema(
+  items: { name: string; href: string }[]
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: `${siteConfig.url}${item.href}`,
+    })),
+  };
+}
+
+type Article = {
+  title: string;
+  description: string;
+  datePublished: string;
+  slug: string;
+  url: string;
+};
+
+export function articleSchema(article: Article) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title,
+    description: article.description,
+    datePublished: article.datePublished,
+    inLanguage: "en",
+    author: { "@type": "Person", name: siteConfig.name, url: siteConfig.url },
+    publisher: {
+      "@type": "Person",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": article.url,
+    },
+  };
+}

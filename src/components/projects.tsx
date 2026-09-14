@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
@@ -28,7 +29,17 @@ export function Projects() {
                 className={`relative h-2 bg-gradient-to-r ${project.gradient}`}
                 aria-hidden="true"
               />
-              <CardHeader className="pb-0">
+              <div className="relative px-6 pt-6">
+                <Image
+                  src={project.cover}
+                  alt={`${project.name} interface preview`}
+                  width={1200}
+                  height={750}
+                  priority={false}
+                  className="h-48 w-full rounded-xl border border-border/70 object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                />
+              </div>
+              <CardHeader className="pb-0 pt-5">
                 <div>
                   <Badge variant="outline" className="mb-3 text-muted-foreground">
                     {project.category}

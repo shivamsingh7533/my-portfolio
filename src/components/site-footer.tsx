@@ -56,11 +56,17 @@ export function SiteFooter() {
           <Link href="/" className="hover:text-foreground">
             Home
           </Link>
+          <Link href="/insights" className="hover:text-foreground">
+            Insights
+          </Link>
           <Link href="/projects/oasis-space" className="hover:text-foreground">
             OasisSpace
           </Link>
           <Link href="/projects/base-mind" className="hover:text-foreground">
             BaseMind
+          </Link>
+          <Link href="/llms.txt" className="hover:text-foreground">
+            llms.txt
           </Link>
         </nav>
       </div>

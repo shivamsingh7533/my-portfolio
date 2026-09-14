@@ -7,6 +7,7 @@ export type Project = {
   category: "Full-Stack Web Platform" | "AI SaaS Platform";
   emoji: string;
   gradient: string;
+  cover: string;
   repo: string;
   demo: string;
   status: string;
@@ -32,6 +33,7 @@ export const projects: Project[] = [
     category: "Full-Stack Web Platform",
     emoji: "🏡",
     gradient: "from-emerald-500/20 via-teal-500/10 to-transparent",
+    cover: "/images/projects/oasis-space.svg",
     repo: "https://github.com/shivamsingh7533/oasis-space",
     demo: "https://oasis-space.vercel.app",
     status: "Live — deployed on Vercel",
@@ -154,6 +156,7 @@ export const projects: Project[] = [
     category: "AI SaaS Platform",
     emoji: "🧠",
     gradient: "from-emerald-500/15 via-cyan-500/10 to-transparent",
+    cover: "/images/projects/base-mind.svg",
     repo: "https://github.com/shivamsingh7533/BaseMind",
     demo: "https://base-mind.vercel.app",
     status: "Live — deployed on Vercel",
