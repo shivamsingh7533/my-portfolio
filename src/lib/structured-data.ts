@@ -46,6 +46,7 @@ export function websiteSchema() {
     name: `${siteConfig.name} — Portfolio`,
     url: siteConfig.url,
     description: siteConfig.shortDescription,
+    inLanguage: "en",
     about: personSchema(),
   };
 }
@@ -68,6 +69,22 @@ export function projectSchema(project: Project) {
     },
     author: { "@type": "Person", name: siteConfig.name, url: siteConfig.url },
     sameAs: [project.demo, project.repo],
+  };
+}
+
+export function projectListSchema(projects: Project[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Projects by Shivam Kumar",
+    numberOfItems: projects.length,
+    itemListElement: projects.map((project, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: project.name,
+      url: `${siteConfig.url}/projects/${project.slug}`,
+      description: project.tagline,
+    })),
   };
 }
 
@@ -102,7 +119,6 @@ type Article = {
   title: string;
   description: string;
   datePublished: string;
-  slug: string;
   url: string;
 };
 

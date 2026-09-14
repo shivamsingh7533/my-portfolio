@@ -50,7 +50,6 @@ export default async function PostPage({
         title: post.title,
         description: post.description,
         datePublished: post.date,
-        slug: post.slug,
         url: `${siteConfig.url}/insights/${post.slug}`,
       })} />
       <JsonLd id={`post-${post.slug}-breadcrumb`} data={breadcrumbSchema([

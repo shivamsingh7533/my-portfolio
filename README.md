@@ -45,3 +45,16 @@ npx vercel --prod
 ```
 
 Set `NEXT_PUBLIC_SITE_URL` to the production URL to control canonicals and the sitemap.
+
+## SEO / Google ranking checklist
+
+Anything marked **(you)** requires your action in browser tools.
+
+1. **(you)** Deploy and open the production URL (e.g. `https://shivam-kumar-portfolio.vercel.app` or custom domain).
+2. Set `NEXT_PUBLIC_SITE_URL` to that exact URL in Vercel → Project → Settings → Environment Variables, then redeploy. Canonicals, sitemap, OG images, and JSON-LD all read it.
+3. **(you)** Google Search Console → add the URL-prefix property → verify via **HTML tag**, copy the token into `GOOGLE_SITE_VERIFICATION`.
+4. **(you)** In GSC → Sitemaps → submit `https://<your-domain>/sitemap.xml`. Then use **URL Inspection → Request indexing** for `/`, `/insights`, and both `/projects/*` pages.
+5. **(you)** Create a Google Analytics (GA4) property and connect it, or keep Vercel Analytics (already installed) — Vercel Analytics + Speed Insights are active.
+6. Backlinks: add the portfolio URL to your LinkedIn headline/bio, GitHub profile, resume, and any community/college profiles. Google ranks domains it trusts; new domains need citations.
+7. Freshness: keep adding `/insights` posts; each one is a new indexed page targeting a keyword (Next.js, LLM integration, etc.).
+8. Verify with **Rich Results Test**: the site ships Person, WebSite, ItemList, FAQ, Project, Article, and BreadcrumbList JSON-LD.
