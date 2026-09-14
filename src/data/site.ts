@@ -9,7 +9,7 @@ export const siteConfig = {
     "Full-Stack Developer & AI Integration Engineer",
   shortDescription:
     "Full-Stack Developer (MERN + Next.js) and AI Integration Engineer specializing in LLM-powered products, intelligent chat experiences, and end-to-end web platforms.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://shivam-kumar.vercel.app",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://shivam-kr.vercel.app",
   email: "sk9529973@gmail.com",
   location: "Jaipur, Rajasthan, India",
   origin: "Nawada, Bihar, India",
