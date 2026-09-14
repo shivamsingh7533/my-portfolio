@@ -44,6 +44,40 @@ export const posts: Post[] = [
       "What I'd do differently next time: treat model latency and token cost as first-class product constraints from day one, and log every prompt and response for evaluation. Live LLM features need instrumentation to improve, just like any other part of the stack.",
     ],
   },
+  {
+    slug: "system-prompts-guardrails-chatbots",
+    title: "System prompts and guardrails: shipping a safe production chatbot",
+    description:
+      "The difference between a toy chatbot and a production AI feature is context and guardrails. Here's the exact framework I use to prompt and gate LLM features.",
+    date: "2026-09-05",
+    dateLabel: "September 2026",
+    readingTime: "5 min",
+    tags: ["Prompt Engineering", "Guardrails", "LLM", "AI Integration"],
+    content: [
+      "Every LLM feature I ship is built around one idea: the system prompt is the product. Model choice matters, but how the model is constrained decides whether a user experience feels sharp or sloppy.",
+      "My guardrail framework has four layers. First, role and boundaries: the prompt states exactly what the assistant is, what it handles, and what it refuses. Second, context grounding: the model only answers from the data it's given, and says it doesn't know when it doesn't. Third, output shaping: response length, tone, formatting, and when to stream vs. wait. Fourth, topic blocks: hard rules for anything with legal, pricing, or safety implications.",
+      "A practical example from OasisSpace: the property assistant is confined to the listing dataset. If a user asks about a listing that isn't in the data, the model says so instead of inventing details. That single rule eliminates most hallucination risk while keeping conversations useful.",
+      "Guardrails belong in both the prompt and the code. The prompt sets behavior; the application enforces it — validating inputs, limiting context size, capping output tokens, and refusing to send unsafe content to the model in the first place.",
+      "Instrumentation is the part most teams skip. Log prompts, responses, and latency, then review them. Live LLM features drift and improve in small iterations, and without logs you're flying blind.",
+    ],
+  },
+  {
+    slug: "choosing-llm-provider-production",
+    title: "Choosing an LLM provider for production: Groq vs Gemini vs OpenAI",
+    description:
+      "Latency, cost, throughput and ecosystem — a practical comparison of the LLM providers I evaluate when shipping real AI features for web products.",
+    date: "2026-09-12",
+    dateLabel: "September 2026",
+    readingTime: "5 min",
+    tags: ["Groq", "Gemini", "OpenAI", "LLM Providers"],
+    content: [
+      "Picking an LLM provider for a production feature is a tradeoff between latency, cost, throughput, and ecosystem — and the right answer depends on the interaction you're shipping.",
+      "Groq is my first choice for chat-heavy, synchronous features where responsiveness is the whole experience. Extremely fast inference and predictable token throughput make streaming assistants feel instant. In OasisSpace, the property assistant runs on Groq for exactly this reason.",
+      "Google Gemini shines when you need strong reasoning, broad context, and multimodal input, or when you're already on Google Cloud. Its generous context windows make it strong for generation tasks that need to absorb a lot of material — I use it for content and description generation.",
+      "OpenAI is the default when you need the largest ecosystem: function calling maturity, tooling, enterprise support, and the widest choice of models. It's rarely the cheapest, but its reliability and documentation reduce integration risk on serious products.",
+      "The practical takeaway: don't standardize on one provider. Structure your code around a thin LLM client so the model swap is a configuration change, run the cheapest adequate model for each job, and measure latency and cost per request in production before you scale.",
+    ],
+  },
 ];
 
 export function getPost(slug: string): Post | undefined {
