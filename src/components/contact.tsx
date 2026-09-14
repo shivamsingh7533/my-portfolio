@@ -23,7 +23,7 @@ export function Contact() {
   return (
     <section id="contact" className="scroll-mt-20 border-t border-border/60 py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="relative overflow-hidden rounded-2xl border border-primary/25 bg-gradient-to-br from-emerald-500/15 via-card/60 to-card/40 p-8 sm:p-12">
+        <div className="relative overflow-hidden rounded-2xl border border-primary/25 bg-gradient-to-br from-primary/15 via-card/60 to-card/40 p-8 sm:p-12">
           <SectionHeading
             id="contact"
             eyebrow="Contact"
@@ -60,7 +60,7 @@ export function Contact() {
             >
               {copied ? (
                 <>
-                  <Check className="size-4 text-emerald-400" aria-hidden="true" />
+                  <Check className="size-4 text-primary" aria-hidden="true" />
                   Copied
                 </>
               ) : (

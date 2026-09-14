@@ -68,8 +68,8 @@ export function About() {
               </ul>
             </div>
 
-            <div className="rounded-xl border border-emerald-500/25 bg-emerald-500/5 p-5">
-              <h3 className="mb-2 text-sm font-semibold text-emerald-400">
+            <div className="rounded-xl border border-primary/25 bg-primary/5 p-5">
+              <h3 className="mb-2 text-sm font-semibold text-primary">
                 Hiring status
               </h3>
               <p className="text-sm text-muted-foreground">

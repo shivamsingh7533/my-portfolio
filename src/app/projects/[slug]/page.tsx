@@ -174,8 +174,8 @@ export default async function ProjectPage({
           </h2>
           <div className="mt-5 grid gap-4 sm:grid-cols-2">
             {project.aiFeatures.map((f) => (
-              <div key={f.title} className="rounded-xl border border-emerald-500/25 bg-emerald-500/5 p-5">
-                <h3 className="font-semibold text-emerald-400">{f.title}</h3>
+              <div key={f.title} className="rounded-xl border border-primary/25 bg-primary/5 p-5">
+                <h3 className="font-semibold text-primary">{f.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.detail}</p>
               </div>
             ))}
@@ -230,8 +230,8 @@ export default async function ProjectPage({
           <h2 id="impact-title" className="text-xl font-bold">Impact</h2>
           <ul className="mt-5 space-y-3">
             {project.impact.map((i) => (
-              <li key={i} className="flex items-start gap-3 rounded-xl border border-emerald-500/25 bg-emerald-500/5 p-4 text-sm leading-relaxed text-muted-foreground">
-                <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-emerald-400" aria-hidden="true" />
+              <li key={i} className="flex items-start gap-3 rounded-xl border border-primary/25 bg-primary/5 p-4 text-sm leading-relaxed text-muted-foreground">
+                <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
                 {i}
               </li>
             ))}

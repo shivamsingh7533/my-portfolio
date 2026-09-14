@@ -12,7 +12,7 @@ export function Hero() {
     <section id="top" className="relative overflow-hidden">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_0%,rgba(16,185,129,0.14),transparent_70%)]"
+        className="pointer-events-none absolute inset-0 [background-image:radial-gradient(60%_50%_at_50%_0%,color-mix(in_oklch,var(--primary),transparent_86%),transparent_70%)]"
       />
       <div
         aria-hidden="true"
@@ -26,10 +26,8 @@ export function Hero() {
       <div className="relative mx-auto max-w-6xl px-4 pb-16 pt-20 sm:px-6 sm:pt-28">
         <div className="max-w-3xl">
           <div className="mb-5 flex flex-wrap items-center gap-2">
-            <Badge
-              className="border-emerald-500/30 bg-emerald-500/10 text-emerald-400"
-            >
-              <span className="mr-1.5 inline-block size-1.5 rounded-full bg-emerald-400" aria-hidden="true" />
+            <Badge className="border-primary/30 bg-primary/10 text-primary">
+              <span className="mr-1.5 inline-block size-1.5 rounded-full bg-primary" aria-hidden="true" />
               Open to work
             </Badge>
             <Badge variant="outline" className="text-muted-foreground">
@@ -38,14 +36,13 @@ export function Hero() {
             </Badge>
           </div>
 
-          <p className="mb-3 text-sm font-medium text-muted-foreground">
-            Hi, I&apos;m Shivam Kumar —
-          </p>
-
-          <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-            Full-Stack Developer{" "}
-            <span className="text-primary">&amp; AI Integration Engineer</span>
+          <h1 className="text-5xl font-bold tracking-tight sm:text-7xl lg:text-8xl">
+            {siteConfig.name}
           </h1>
+
+          <p className="mt-4 text-lg font-medium sm:text-xl text-primary">
+            {siteConfig.headline}
+          </p>
 
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
             {siteConfig.shortDescription} I build fast, secure, production-grade
@@ -103,8 +100,8 @@ export function Hero() {
               Verified internship & development certificates
             </p>
           </div>
-          <div className="rounded-xl border border-emerald-500/25 bg-emerald-500/5 p-4">
-            <span className="text-sm font-semibold text-emerald-400">
+          <div className="rounded-xl border border-primary/25 bg-primary/5 p-4">
+            <span className="text-sm font-semibold text-primary">
               {siteConfig.available ? "Available" : "Taking a pause"}
             </span>
             <p className="mt-1 text-sm text-muted-foreground">

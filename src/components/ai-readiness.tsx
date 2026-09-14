@@ -63,8 +63,8 @@ export function AIReadiness() {
         />
 
         <div className="mb-8 flex flex-wrap items-center gap-3">
-          <div className="flex items-center gap-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-5 py-3">
-            <span className="text-2xl font-bold text-emerald-400">3/3</span>
+          <div className="flex items-center gap-3 rounded-xl border border-primary/30 bg-primary/10 px-5 py-3">
+            <span className="text-2xl font-bold text-primary">3/3</span>
             <div>
               <p className="text-sm font-semibold text-foreground">Agentic browsing score</p>
               <p className="text-xs text-muted-foreground">
