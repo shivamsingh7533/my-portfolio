@@ -170,7 +170,7 @@ export default async function ProjectPage({
 
         <section className="mt-12" aria-labelledby="ai-title">
           <h2 id="ai-title" className="flex items-center gap-2 text-xl font-bold">
-            ⚡ AI integrations
+            <span aria-hidden="true">⚡</span> AI integrations
           </h2>
           <div className="mt-5 grid gap-4 sm:grid-cols-2">
             {project.aiFeatures.map((f) => (

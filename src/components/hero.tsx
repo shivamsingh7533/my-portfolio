@@ -105,7 +105,7 @@ export function Hero() {
               {siteConfig.available ? "Available" : "Taking a pause"}
             </span>
             <p className="mt-1 text-sm text-muted-foreground">
-              Open to full-stack and AI integration roles — since 2024
+              Fully open to full-stack and AI integration roles — remote, hybrid, on-site
             </p>
           </div>
         </div>

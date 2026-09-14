@@ -139,7 +139,7 @@ export const projects: Project[] = [
     ],
     impact: [
       "A single platform where buyers, sellers, and admins complete the full real-estate workflow without leaving the app.",
-      "AI assistance is embedded where users actually need help — search, listing creation, and buyer questions — with an 80% time saving on property descriptions.",
+      "AI assistance is embedded where users actually need help — search, listing creation, and buyer questions — with AI-generated descriptions that cut listing-creation time dramatically.",
       "Production-grade security (OTP, OAuth, JWT, hashed passwords) and a PWA experience on mobile.",
     ],
     modelHighlights: [

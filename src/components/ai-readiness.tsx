@@ -68,7 +68,7 @@ export function AIReadiness() {
             <div>
               <p className="text-sm font-semibold text-foreground">Agentic browsing score</p>
               <p className="text-xs text-muted-foreground">
-                Fully extractable by AI browsing agents — identity, links, and skills verified
+                Self-audited with AI browsing agents — identity, links, and skills extracted 3/3
               </p>
             </div>
           </div>

@@ -29,7 +29,7 @@ export const faqs: Faq[] = [
   {
     question: "Is Shivam's portfolio optimized for search engines and AI assistants?",
     answer:
-      "Yes. This site is deliberately engineered for SEO, AEO, GEO, LLMO, and AISEO: semantic HTML, structured JSON-LD data (Person, Project, FAQ), a sitemap, robots rules, fast performance, and clear plain-text answers. It earned an agentic browsing extractability score of 3/3.",
+      "Yes. This site is deliberately engineered for SEO, AEO, GEO, LLMO, and AISEO: semantic HTML, structured JSON-LD data (Person, Project, FAQ), a sitemap, robots rules, fast performance, and clear plain-text answers. In a self-audit with AI browsing agents, the profile scores 3/3 on extractability — identity, links, and skills are all captured.",
   },
   {
     question: "How can recruiters contact Shivam?",

@@ -13,8 +13,8 @@ const navLinks = [
   { href: "#about", label: "About" },
   { href: "#skills", label: "Skills" },
   { href: "#projects", label: "Projects" },
-  { href: "/insights", label: "Insights" },
   { href: "#experience", label: "Experience" },
+  { href: "/insights", label: "Insights" },
   { href: "#faq", label: "FAQ" },
 ] as const;
 
@@ -70,7 +70,7 @@ export function SiteHeader() {
       <div
         className={cn(
           "overflow-hidden border-border/60 transition-all duration-200 lg:hidden",
-          open ? "max-h-96 border-t" : "max-h-0"
+          open ? "max-h-[28rem] border-t" : "max-h-0"
         )}
       >
         <nav aria-label="Mobile" className="px-4 py-3">
@@ -87,9 +87,9 @@ export function SiteHeader() {
               </li>
             ))}
             <li className="pt-2">
-<Button className="w-full" render={<a href="#contact" data-track="Hire me" onClick={() => setOpen(false)} />}>
-              Hire me
-            </Button>
+              <Button className="w-full" render={<a href="#contact" data-track="Hire me" onClick={() => setOpen(false)} />}>
+                Hire me
+              </Button>
             </li>
             <li className="flex items-center justify-end gap-1 pt-1">
               <ThemeToggle />

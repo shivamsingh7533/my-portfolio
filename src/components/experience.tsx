@@ -2,11 +2,12 @@ import { Briefcase, ShieldCheck } from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { experience } from "@/data/certs";
+import { experience, certs } from "@/data/certs";
+import { projects } from "@/data/projects";
 
-const trustSignals = [
-  { label: "2 verified certificates", note: "Linked & downloadable" },
-  { label: "2 production projects", note: "Live on Vercel" },
+const trustSignals = () => [
+  { label: `${certs.length} verified certificate${certs.length === 1 ? "" : "s"}`, note: "Linked & downloadable" },
+  { label: `${projects.length} production projects`, note: "Live on Vercel" },
   { label: "Real AI integrations", note: "Groq, Gemini, FastAPI" },
   { label: "Open-source work", note: "Public repos on GitHub" },
 ];
@@ -68,7 +69,7 @@ export function Experience() {
             <div className="rounded-xl border border-border/70 bg-card/50 p-6">
               <h3 className="mb-4 text-sm font-semibold">Why you can trust this profile</h3>
               <ul className="space-y-4">
-                {trustSignals.map((s) => (
+                {trustSignals().map((s) => (
                   <li key={s.label} className="flex items-start gap-3">
                     <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary">
                       <ShieldCheck className="size-3.5" aria-hidden="true" />

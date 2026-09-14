@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { Command } from "cmdk";
 import { ArrowRight, Home, Search, Sparkles, FolderGit2 } from "lucide-react";
@@ -64,15 +65,19 @@ export function CommandPalette({ className }: { className?: string }) {
         <Search className="size-4" aria-hidden="true" />
       </Button>
 
-      {open ? (
-        <div
-          className="fixed inset-0 z-50 flex items-start justify-center bg-black/60 px-4 pt-[15vh] backdrop-blur-sm"
-          onClick={() => setOpen(false)}
-        >
-          <Command
-            className="w-full max-w-lg overflow-hidden rounded-xl border border-border bg-popover text-popover-foreground shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
+      {open
+        ? createPortal(
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-label="Command palette"
+              className="fixed inset-0 z-[60] flex items-start justify-center bg-black/60 px-4 pt-[15vh] backdrop-blur-sm"
+              onClick={() => setOpen(false)}
+            >
+              <Command
+                className="w-full max-w-lg overflow-hidden rounded-xl border border-border bg-popover text-popover-foreground shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
+              >
             <div className="flex items-center gap-2 border-b border-border/70 px-4">
               <Search className="size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
               <Command.Input
@@ -160,8 +165,10 @@ export function CommandPalette({ className }: { className?: string }) {
               </Command.Group>
             </Command.List>
           </Command>
-        </div>
-      ) : null}
+            </div>,
+            document.body
+          )
+      : null}
     </>
   );
 }

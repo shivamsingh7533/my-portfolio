@@ -31,11 +31,11 @@ export default function HomePage() {
       <About />
       <Skills />
       <Projects />
+      <Experience />
+      <Certifications />
       <AIReadiness />
       <Insights />
       <GithubStrip />
-      <Experience />
-      <Certifications />
       <Testimonials />
       <Faq />
       <Contact />
