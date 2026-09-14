@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Shivam Kumar — Portfolio
+
+Next.js 16 · TypeScript · Tailwind CSS 4 · shadcn/ui
+
+Personal portfolio and project showcase for recruiters and AI assistants. Engineered for SEO, AEO, GEO, LLMO, AISEO, and EEAT with JSON-LD structured data, an agentic-browsing-friendly design, and individual case-study pages per project.
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run dev` — start dev server
+- `npm run build` — production build
+- `npm run start` — serve production build
+- `npm run lint` — lint with ESLint
 
-## Learn More
+## Structure
 
-To learn more about Next.js, take a look at the following resources:
+- `src/data/` — single source of truth for site content (profile, projects, skills, certs, FAQ, config)
+- `src/components/` — page sections and UI primitives
+- `src/app/projects/[slug]/` — generated case-study pages for each project
+- `src/lib/structured-data.ts` — JSON-LD schemas (Person, WebSite, FAQ, Project)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deploy
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Deploy on [Vercel](https://vercel.com):
 
-## Deploy on Vercel
+```bash
+npx vercel --prod
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Set `NEXT_PUBLIC_SITE_URL` to the production URL to control canonicals and the sitemap.
