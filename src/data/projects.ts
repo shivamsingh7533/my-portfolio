@@ -155,7 +155,7 @@ export const projects: Project[] = [
     emoji: "🧠",
     gradient: "from-emerald-500/15 via-cyan-500/10 to-transparent",
     repo: "https://github.com/shivamsingh7533/BaseMind",
-    demo: "https://base-mind-lac.vercel.app",
+    demo: "https://base-mind.vercel.app",
     status: "Live — deployed on Vercel",
     summary:
       "An AI SaaS platform that makes deploying and managing AI agents simple. It includes a marketing landing page, a full product dashboard for deployed agents, a knowledge-base for RAG-ready documents, conversation transcripts, and a settings console — powered by a FastAPI backend with a resilient seed-data fallback.",
