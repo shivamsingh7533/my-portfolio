@@ -1,4 +1,4 @@
-import { ArrowRight, GraduationCap, MapPin } from "lucide-react";
+import { ArrowRight, Download, GraduationCap, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { siteConfig } from "@/data/site";
@@ -56,6 +56,10 @@ export function Hero() {
             </Button>
             <Button size="lg" variant="outline" render={<a href="#contact" data-track="Contact" />}>
               Contact me
+            </Button>
+            <Button size="lg" variant="outline" render={<a href={siteConfig.resumeUrl} download data-track="Resume" />}>
+              <Download className="size-4" aria-hidden="true" />
+              Download resume
             </Button>
           </div>
 

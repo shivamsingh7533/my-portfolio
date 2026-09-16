@@ -68,8 +68,8 @@ export function SiteFooter() {
           <Link href="/projects/base-mind" className="hover:text-foreground">
             BaseMind
           </Link>
-          <Link href="/llms.txt" className="hover:text-foreground">
-            llms.txt
+          <Link href={siteConfig.resumeUrl} className="hover:text-foreground">
+            Resume
           </Link>
         </nav>
       </div>

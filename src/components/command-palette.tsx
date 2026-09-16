@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { Command } from "cmdk";
-import { ArrowRight, Home, Search, Sparkles, FolderGit2 } from "lucide-react";
+import { ArrowRight, Download, Home, Search, Sparkles, FolderGit2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/data/site";
 import { projects } from "@/data/projects";
@@ -146,6 +146,14 @@ export function CommandPalette({ className }: { className?: string }) {
               </Command.Group>
 
               <Command.Group heading="Links" className="px-0">
+                <Command.Item
+                  value="resume"
+                  onSelect={() => window.open(siteConfig.resumeUrl, "_blank")}
+                  className="flex cursor-pointer items-center gap-2.5 rounded-md px-3 py-2.5 text-sm data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground"
+                >
+                  <Download className="size-4 text-primary" aria-hidden="true" />
+                  Download resume
+                </Command.Item>
                 <Command.Item
                   value="github"
                   onSelect={() => window.open(siteConfig.github, "_blank")}

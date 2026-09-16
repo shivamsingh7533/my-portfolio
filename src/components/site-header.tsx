@@ -48,11 +48,14 @@ export function SiteHeader() {
               {l.label}
             </Link>
           ))}
-          <Button size="sm" className="ml-2" render={<a href="#contact" data-track="Hire me" />}>
-            Hire me
-          </Button>
-          <ThemeToggle className="ml-1" />
-          <CommandPalette className="ml-1" />
+<Button size="sm" render={<a href={siteConfig.resumeUrl} data-track="Resume" />}>
+              Resume
+            </Button>
+            <Button size="sm" className="ml-2" render={<a href="#contact" data-track="Hire me" />}>
+              Hire me
+            </Button>
+            <ThemeToggle className="ml-1" />
+            <CommandPalette className="ml-1" />
         </nav>
 
         <Button
@@ -86,6 +89,11 @@ export function SiteHeader() {
                 </Link>
               </li>
             ))}
+            <li className="pt-2">
+              <Button className="w-full" render={<a href={siteConfig.resumeUrl} data-track="Resume" onClick={() => setOpen(false)} />}>
+                Download resume
+              </Button>
+            </li>
             <li className="pt-2">
               <Button className="w-full" render={<a href="#contact" data-track="Hire me" onClick={() => setOpen(false)} />}>
                 Hire me

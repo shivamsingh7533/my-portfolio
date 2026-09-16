@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Copy, Check } from "lucide-react";
+import { ArrowRight, Copy, Check, Download } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/section-heading";
@@ -31,7 +31,7 @@ export function Contact() {
             description="Open to full-stack developer and AI integration roles — remote, hybrid, or on-site. I reply fast."
           />
 
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <Button size="lg" variant="secondary" render={<a href={`mailto:${siteConfig.email}?subject=Opportunity%20for%20Shivam%20Kumar`} data-track="Email" />}>
               <MailIcon className="size-4" aria-hidden="true" />
               {siteConfig.email}
@@ -45,6 +45,11 @@ export function Contact() {
             <Button size="lg" variant="outline" render={<a href={siteConfig.github} target="_blank" rel="noreferrer noopener" data-track="GitHub" />}>
               <GitHubIcon className="size-4" aria-hidden="true" />
               GitHub
+            </Button>
+
+            <Button size="lg" variant="outline" render={<a href={siteConfig.resumeUrl} data-track="Resume" />}>
+              <Download className="size-4" aria-hidden="true" />
+              View resume
             </Button>
           </div>
 
