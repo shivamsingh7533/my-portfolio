@@ -48,7 +48,17 @@ export function CommandPalette({ className }: { className?: string }) {
   const run = useCallback(
     (href: string) => {
       setOpen(false);
-      router.push(href);
+      if (href.startsWith("/#")) {
+        const id = href.replace(/^\/#/, "");
+        const el = document.getElementById(id);
+        if (el) {
+          const top = el.getBoundingClientRect().top + window.scrollY - 128;
+          window.scrollTo({ top, behavior: "smooth" });
+          history.replaceState(null, "", window.location.pathname);
+        }
+      } else {
+        router.push(href);
+      }
     },
     [router]
   );

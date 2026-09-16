@@ -18,6 +18,16 @@ const navLinks = [
   { href: "/#faq", label: "FAQ" },
 ] as const;
 
+function scrollToSection(href: string) {
+  const id = href.replace(/^\/#/, "");
+  const el = document.getElementById(id);
+  if (el) {
+    const top = el.getBoundingClientRect().top + window.scrollY - 128;
+    window.scrollTo({ top, behavior: "smooth" });
+    history.replaceState(null, "", window.location.pathname);
+  }
+}
+
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
@@ -43,6 +53,12 @@ export function SiteHeader() {
             <Link
               key={l.href}
               href={l.href}
+              onClick={(e) => {
+                if (l.href.startsWith("/#")) {
+                  e.preventDefault();
+                  scrollToSection(l.href);
+                }
+              }}
               className="rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
               {l.label}
@@ -82,7 +98,13 @@ export function SiteHeader() {
               <li key={l.href}>
                 <Link
                   href={l.href}
-                  onClick={() => setOpen(false)}
+                  onClick={(e) => {
+                    if (l.href.startsWith("/#")) {
+                      e.preventDefault();
+                      scrollToSection(l.href);
+                    }
+                    setOpen(false);
+                  }}
                   className="block rounded-md px-3 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                 >
                   {l.label}
