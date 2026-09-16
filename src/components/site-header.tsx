@@ -10,12 +10,12 @@ import { CommandPalette } from "@/components/command-palette";
 import { siteConfig } from "@/data/site";
 
 const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "#skills", label: "Skills" },
-  { href: "#projects", label: "Projects" },
-  { href: "#experience", label: "Experience" },
+  { href: "/#about", label: "About" },
+  { href: "/#skills", label: "Skills" },
+  { href: "/#projects", label: "Projects" },
+  { href: "/#experience", label: "Experience" },
   { href: "/insights", label: "Insights" },
-  { href: "#faq", label: "FAQ" },
+  { href: "/#faq", label: "FAQ" },
 ] as const;
 
 export function SiteHeader() {
