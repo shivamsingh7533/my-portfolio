@@ -71,10 +71,14 @@ function context() {
   let sw = 0;
   let sh = 0;
   let dpr = 1;
+  let vw = 0;
+  let vh = 0;
   try {
     sw = window.screen.width;
     sh = window.screen.height;
     dpr = window.devicePixelRatio || 1;
+    vw = window.innerWidth;
+    vh = window.innerHeight;
   } catch {
     // ignore
   }
@@ -88,6 +92,8 @@ function context() {
     sw,
     sh,
     dpr,
+    vw,
+    vh,
     lang: (navigator.language || "").slice(0, 20),
     tz: tz.slice(0, 32),
   };

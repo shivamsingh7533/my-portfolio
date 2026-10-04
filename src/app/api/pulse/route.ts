@@ -48,6 +48,9 @@ function envOf(req: Request): VisitEnv {
     country: h("x-vercel-ip-country"),
     region: h("x-vercel-ip-country-region"),
     city: h("x-vercel-ip-city"),
+    lat: h("x-vercel-ip-latitude"),
+    lon: h("x-vercel-ip-longitude"),
+    ipTz: h("x-vercel-ip-timezone"),
   };
 }
 
@@ -72,7 +75,9 @@ function isValid(b: unknown): b is PulsePayload {
     str(x.tz, 48) &&
     num(x.sw) &&
     num(x.sh) &&
-    num(x.dpr)
+    num(x.dpr) &&
+    num(x.vw) &&
+    num(x.vh)
   );
 }
 

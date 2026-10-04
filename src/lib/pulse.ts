@@ -14,6 +14,8 @@ export type PulsePayload = {
   sw?: number;
   sh?: number;
   dpr?: number;
+  vw?: number;
+  vh?: number;
 };
 
 export type VisitEnv = {
@@ -25,6 +27,9 @@ export type VisitEnv = {
   country: string;
   region: string;
   city: string;
+  lat: string;
+  lon: string;
+  ipTz: string;
 };
 
 export function isCrawler(ua: string): boolean {
@@ -155,36 +160,118 @@ function searchLabel(host: string): string {
   return map[head] ?? cap(head);
 }
 
-export function classifyProvider(
-  ref: string | undefined,
-  inApp: string | null
-): { kind: string; label: string } {
-  if (inApp) return { kind: "Social (in-app)", label: inApp.split(" ")[0] };
-  if (!ref) return { kind: "Direct", label: "Typed / bookmark / viewer" };
-  const host = hostOf(ref);
-  if (matches(AI_HOSTS, host)) return { kind: "AI assistant", label: aiLabel(host) };
-  if (matches(SEARCH_HOSTS, host)) return { kind: "Search", label: searchLabel(host) };
-  if (matches(SOCIAL_HOSTS, host)) return { kind: "Social (web)", label: cap(host.split(".")[0] || "") };
-  if (matches(EMAIL_HOSTS, host)) return { kind: "Email", label: cap(host.split(".")[0] || "") };
-  return { kind: "Other", label: host || "unknown" };
-}
-
 export function inAppBrowser(ua: string): string | null {
   const rules: Array<[RegExp, string]> = [
     [/instagram/i, "Instagram"],
     [/fbav|fban|\bmessenger\b|com\.facebook/i, "Facebook"],
     [/whatsapp/i, "WhatsApp"],
     [/telegram/i, "Telegram"],
-    [/twitter|twitterandroid|[^\w]x\)?\s?\/|x-android|com\.twitter\.android/i, "X"],
-    [/youtubeapp|com\.google\.android\.youtube/i, "YouTube"],
+    [/twitter|twitterandroid|x-android|com\.twitter\.android/i, "X"],
+    [/youtube|com\.google\.android\.youtube/i, "YouTube"],
     [/tiktok/i, "TikTok"],
-    [/linkedinapp/i, "LinkedIn"],
-    [/safari$|safari\/|wkwebview/i, "In-app webview"],
+    [/linkedin/i, "LinkedIn"],
+    [/snapchat/i, "Snapchat"],
+    [/(^|[ (;])wv([;)]|$)/i, "In-app browser"],
   ];
   for (const [re, label] of rules) {
     if (re.test(ua)) return label;
   }
   return null;
+}
+
+const UTM_PLATFORM: Record<string, string> = {
+  ig: "Instagram",
+  instagram: "Instagram",
+  fb: "Facebook",
+  facebook: "Facebook",
+  meta: "Facebook",
+  li: "LinkedIn",
+  linkedin: "LinkedIn",
+  wa: "WhatsApp",
+  whatsapp: "WhatsApp",
+  tw: "X",
+  twitter: "X",
+  x: "X",
+  tg: "Telegram",
+  telegram: "Telegram",
+  yt: "YouTube",
+  youtube: "YouTube",
+  tt: "TikTok",
+  tiktok: "TikTok",
+  gpt: "ChatGPT",
+  chatgpt: "ChatGPT",
+  openai: "ChatGPT",
+  perplexity: "Perplexity",
+  gemini: "Gemini",
+  bard: "Gemini",
+  claude: "Claude",
+  anthropic: "Claude",
+  ggl: "Google",
+  google: "Google",
+  bing: "Bing",
+  ddg: "DuckDuckGo",
+  duckduckgo: "DuckDuckGo",
+  email: "Email",
+  newsletter: "Newsletter",
+};
+
+function utmPlatform(utm?: string): string | null {
+  if (!utm) return null;
+  const parts = utm.split(/[,;|·]/).map((p) => p.trim());
+  for (const part of parts) {
+    const m = /^src=(\S+)$/i.exec(part);
+    if (m && UTM_PLATFORM[m[1].toLowerCase()]) {
+      return UTM_PLATFORM[m[1].toLowerCase()];
+    }
+  }
+  return null;
+}
+
+function platformKind(label: string): string {
+  const socials = [
+    "Instagram", "Facebook", "WhatsApp", "Telegram", "X", "YouTube",
+    "TikTok", "LinkedIn", "Snapchat",
+  ];
+  const ais = [
+    "ChatGPT", "Perplexity", "Gemini", "Claude", "Copilot", "Poe",
+    "DeepSeek", "Grok",
+  ];
+  const searches = [
+    "Google", "Bing", "DuckDuckGo", "Yahoo", "Yandex", "Ecosia",
+    "Brave", "Baidu",
+  ];
+  if (socials.includes(label)) return "Social";
+  if (ais.includes(label)) return "AI assistant";
+  if (searches.includes(label)) return "Search";
+  return "Campaign";
+}
+
+export function classifyProvider(
+  ref: string | undefined,
+  inApp: string | null,
+  utm?: string
+): { kind: string; label: string } {
+  const utmPlat = utmPlatform(utm);
+
+  if (inApp) {
+    if (inApp === "In-app browser") {
+      if (utmPlat) return { kind: `${platformKind(utmPlat)} (in-app)`, label: utmPlat };
+      return { kind: "In-app", label: "In-app browser (unknown app)" };
+    }
+    return { kind: "Social (in-app)", label: inApp };
+  }
+
+  if (!ref) {
+    if (utmPlat) return { kind: platformKind(utmPlat), label: utmPlat };
+    return { kind: "Direct", label: "Typed / bookmark / viewer" };
+  }
+
+  const host = hostOf(ref);
+  if (matches(AI_HOSTS, host)) return { kind: "AI assistant", label: aiLabel(host) };
+  if (matches(SEARCH_HOSTS, host)) return { kind: "Search", label: searchLabel(host) };
+  if (matches(SOCIAL_HOSTS, host)) return { kind: "Social (web)", label: cap(host.split(".")[0] || "") };
+  if (matches(EMAIL_HOSTS, host)) return { kind: "Email", label: cap(host.split(".")[0] || "") };
+  return { kind: "Other", label: host || "unknown" };
 }
 
 function detectOs(ua: string, chPlatform: string): string {
@@ -229,6 +316,14 @@ function detectBrowser(ua: string, chUa: string): string {
   return "Unknown";
 }
 
+function deviceModel(ua: string, cls: string): string {
+  if (cls !== "Mobile" && cls !== "Tablet") return "";
+  if (/iphone/i.test(ua)) return "Apple iPhone";
+  if (/ipad/i.test(ua)) return "Apple iPad";
+  const m = /;\s*([A-Za-z0-9][A-Za-z0-9_-]{1,32})\s+Build\//.exec(ua);
+  return m ? m[1] : "";
+}
+
 function esc(s: unknown): string {
   return String(s ?? "")
     .replace(/&/g, "&amp;")
@@ -260,22 +355,31 @@ export function buildViewMessage(b: PulsePayload, env: VisitEnv): string {
   const inApp = inAppBrowser(env.ua);
   const os = detectOs(env.ua, env.chPlatform);
   const cls = detectDevice(env.ua, env.chMobile, os);
-  const browser = inApp ? `${inApp} (in-app)` : detectBrowser(env.ua, env.chUa);
-  const prov = classifyProvider(b.r, inApp);
+  const browser = inApp ? "In-app browser" : detectBrowser(env.ua, env.chUa);
+  const prov = classifyProvider(b.r, inApp, b.u);
+  const model = deviceModel(env.ua, cls);
 
-  const geo = [env.country, env.region ? `(${env.region})` : null]
-    .filter(Boolean)
-    .join(" ");
+  const geo = [env.city, env.region, env.country].filter(Boolean).join(", ");
 
   const lines: string[] = [
     `🟢 <b>NEW VISIT</b> · <code>${time}</code> · ${date}`,
     `📍 <b>Page:</b> <code>${esc(b.p)}</code>`,
     `🛰 <b>Via:</b> ${esc(prov.label)} <i>(${esc(prov.kind)})</i>`,
-    `📱 <b>Device:</b> ${esc(cls)} · <b>OS:</b> ${esc(os)}`,
+    `📱 <b>Device:</b> ${esc(cls)}${model ? ` (${esc(model)})` : ""} · <b>OS:</b> ${esc(os)}`,
     `🌐 <b>Browser:</b> ${esc(browser)}`,
   ];
   if (b.sw) lines.push(`🖥 <b>Screen:</b> ${b.sw}×${b.sh ?? "?"} @${b.dpr ?? 1}x`);
-  lines.push(`🌍 <b>Geo:</b> ${esc(geo || "Unknown")} · IP <code>${esc(env.ip)}</code>`);
+  if (b.vw && b.vh) lines.push(`🪟 <b>Viewport:</b> ${b.vw}×${b.vh}`);
+  const geoEnc = esc(geo || "Unknown");
+  lines.push(
+    `🌍 <b>Geo:</b> ${geoEnc}${env.city ? " (city-level)" : ""} · IP <code>${esc(env.ip)}</code>`
+  );
+  if (env.lat && env.lon) {
+    lines.push(`📍 <b>Coords:</b> <code>${esc(env.lat)}, ${esc(env.lon)}</code>`);
+  }
+  if (env.ipTz) {
+    lines.push(`🗺 <b>IP TZ:</b> ${esc(env.ipTz)}`);
+  }
   if (b.lang) {
     lines.push(`🔤 <b>Lang:</b> ${esc(b.lang)}${b.tz ? ` · <b>TZ:</b> ${esc(b.tz)}` : ""}`);
   }
