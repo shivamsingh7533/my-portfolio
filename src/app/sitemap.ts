@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "monthly",
       priority: 1,
+      images: [`${siteConfig.url}${siteConfig.profileImage}`],
     },
     {
       url: `${siteConfig.url}/insights`,
