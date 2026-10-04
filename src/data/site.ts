@@ -12,6 +12,7 @@ export const siteConfig = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://shivam-kr.vercel.app",
   email: "sk9529973@gmail.com",
   resumeUrl: "/resume.pdf",
+  profileImage: "/images/profile.png",
   location: "Jaipur, Rajasthan, India",
   origin: "Nawada, Bihar, India",
   linkedin: "https://www.linkedin.com/in/shivam-kumar-b61784293/",

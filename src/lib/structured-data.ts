@@ -9,6 +9,7 @@ export function personSchema() {
     name: siteConfig.name,
     url: siteConfig.url,
     email: siteConfig.email,
+    image: `${siteConfig.url}${siteConfig.profileImage}`,
     jobTitle: "Full-Stack Developer & AI Integration Engineer",
     description: siteConfig.shortDescription,
     address: {

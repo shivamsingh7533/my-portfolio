@@ -1,4 +1,5 @@
 import { ArrowRight, GraduationCap, MapPin } from "lucide-react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { siteConfig } from "@/data/site";
@@ -24,8 +25,9 @@ export function Hero() {
         }}
       />
       <div className="relative mx-auto max-w-6xl px-4 pb-12 pt-16 sm:px-6 sm:pt-24">
-        <div className="max-w-3xl">
-          <div className="mb-5 flex flex-wrap items-center gap-2">
+        <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+          <div className="order-2 max-w-3xl lg:order-1">
+            <div className="mb-5 flex flex-wrap items-center gap-2">
             <Badge className="border-primary/30 bg-primary/10 text-primary">
               <span className="mr-1.5 inline-block size-1.5 rounded-full bg-primary" aria-hidden="true" />
               Open to work
@@ -82,6 +84,24 @@ export function Hero() {
             ))}
           </div>
         </div>
+
+        <div className="order-1 flex justify-center lg:order-2 lg:justify-end">
+          <div className="relative">
+            <div
+              aria-hidden="true"
+              className="absolute -inset-3 rounded-full bg-primary/20 blur-2xl"
+            />
+            <Image
+              src={siteConfig.profileImage}
+              alt="Shivam Kumar — Full-Stack Developer & AI Integration Engineer"
+              width={1024}
+              height={1536}
+              priority
+              className="relative size-28 rounded-full border border-primary/30 object-cover shadow-xl ring-2 ring-primary/40 sm:size-36 lg:size-80"
+            />
+          </div>
+        </div>
+      </div>
 
         <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <div className="rounded-xl border border-border/70 bg-card/50 p-4">
