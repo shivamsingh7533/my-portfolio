@@ -32,22 +32,22 @@ export function Contact() {
           />
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <Button size="lg" variant="secondary" render={<a href={`mailto:${siteConfig.email}?subject=Opportunity%20for%20Shivam%20Kumar`} data-track="Email" />}>
+            <Button size="lg" variant="secondary" render={<a href={`mailto:${siteConfig.email}?subject=Opportunity%20for%20Shivam%20Kumar`} />}>
               <MailIcon className="size-4" aria-hidden="true" />
               {siteConfig.email}
             </Button>
 
-            <Button size="lg" variant="outline" render={<a href={siteConfig.linkedin} target="_blank" rel="noreferrer noopener" data-track="LinkedIn" />}>
+            <Button size="lg" variant="outline" render={<a href={siteConfig.linkedin} target="_blank" rel="noreferrer noopener" />}>
               <LinkedInIcon className="size-4" aria-hidden="true" />
               LinkedIn
             </Button>
 
-            <Button size="lg" variant="outline" render={<a href={siteConfig.github} target="_blank" rel="noreferrer noopener" data-track="GitHub" />}>
+            <Button size="lg" variant="outline" render={<a href={siteConfig.github} target="_blank" rel="noreferrer noopener" />}>
               <GitHubIcon className="size-4" aria-hidden="true" />
               GitHub
             </Button>
 
-            <Button size="lg" variant="outline" render={<a href={siteConfig.resumeUrl} data-track="Resume" />}>
+            <Button size="lg" variant="outline" render={<a href={siteConfig.resumeUrl} />}>
               <Download className="size-4" aria-hidden="true" />
               View resume
             </Button>

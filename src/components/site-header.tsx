@@ -64,7 +64,7 @@ export function SiteHeader() {
               {l.label}
             </Link>
           ))}
-          <Button size="sm" render={<a href={siteConfig.resumeUrl} data-track="Resume" />}>
+          <Button size="sm" render={<a href={siteConfig.resumeUrl} />}>
               Resume
             </Button>
             <ThemeToggle className="ml-1" />
@@ -109,7 +109,7 @@ export function SiteHeader() {
               </li>
             ))}
             <li className="pt-2">
-              <Button className="w-full" render={<a href={siteConfig.resumeUrl} data-track="Resume" onClick={() => setOpen(false)} />}>
+              <Button className="w-full" render={<a href={siteConfig.resumeUrl} onClick={() => setOpen(false)} />}>
                 Download resume
               </Button>
             </li>
