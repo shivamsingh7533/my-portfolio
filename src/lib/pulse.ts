@@ -1,0 +1,299 @@
+import "server-only";
+
+export type PulseEvent = "view" | "click" | "section";
+
+export type PulsePayload = {
+  e: PulseEvent;
+  p: string;
+  a?: string;
+  r?: string;
+  u?: string;
+  sid?: string;
+  lang?: string;
+  tz?: string;
+  sw?: number;
+  sh?: number;
+  dpr?: number;
+};
+
+export type VisitEnv = {
+  ua: string;
+  chUa: string;
+  chMobile: string;
+  chPlatform: string;
+  ip: string;
+  country: string;
+  region: string;
+  city: string;
+};
+
+export function isCrawler(ua: string): boolean {
+  return /bot\b|crawl|spider|slurp|mediapartners|adsbot|preview|headless|phantom|puppeteer|playwright|selenium|lighthouse|pingdom|uptime|monitor|checker|scanner|feedly|python-requests|curl|wget|go-http-client|okhttp|httpie|java\/|axios|node-fetch|gptbot|chatgpt-user|oai-searchbot|claudebot|claude-web|claude-search|anthropic-ai|perplexitybot|perplexity-user|googlebot|google-extended|googleother|google-inspector|bingbot|bingpreview|yandexbot|baiduspider|duckduckbot|applebot|ia_archiver|ccbot|bytespider|amazonbot|linkedinbot|twitterbot|facebookbot|metainspector|semrushbot|mozilaltools|mj12bot|ahrefsbot|dotbot|dataprovider|petalbot|webprosbot|scoutjet|semantic-scholar|trebleclef|img2dataset|isearch/i.test(
+    ua
+  );
+}
+
+const SOCIAL_HOSTS = [
+  "instagram.com",
+  "facebook.com",
+  "fb.com",
+  "linkedin.com",
+  "x.com",
+  "twitter.com",
+  "youtube.com",
+  "t.me",
+  "telegram.org",
+  "discord.com",
+  "threads.net",
+  "pinterest.com",
+  "reddit.com",
+  "tiktok.com",
+  "snapchat.com",
+  "wa.me",
+];
+
+const AI_HOSTS = [
+  "chatgpt.com",
+  "chat.openai.com",
+  "openai.com",
+  "perplexity.ai",
+  "gemini.google.com",
+  "bard.google.com",
+  "claude.ai",
+  "anthropic.com",
+  "copilot.microsoft.com",
+  "chat.bing.com",
+  "you.com",
+  "poe.com",
+  "meta.ai",
+  "deepseek.com",
+  "grok.com",
+  "x.ai",
+  "aistudio.google.com",
+  "character.ai",
+];
+
+const SEARCH_HOSTS = [
+  "google.com",
+  "google.co.in",
+  "google.co.uk",
+  "google.ca",
+  "google.de",
+  "bing.com",
+  "duckduckgo.com",
+  "yahoo.com",
+  "search.yahoo.com",
+  "yandex.com",
+  "yandex.ru",
+  "ecosia.org",
+  "search.brave.com",
+  "brave.com",
+  "baidu.com",
+];
+
+const EMAIL_HOSTS = [
+  "mail.google.com",
+  "outlook.com",
+  "live.com",
+  "mail.yahoo.com",
+  "protonmail.com",
+  "proton.me",
+];
+
+function hostOf(ref: string): string {
+  try {
+    return new URL(ref).hostname.toLowerCase().replace(/^www\./, "");
+  } catch {
+    return ref.toLowerCase().slice(0, 80);
+  }
+}
+
+function matches(list: string[], host: string): boolean {
+  return list.some((d) => host === d || host.endsWith(`.${d}`));
+}
+
+function cap(s: string): string {
+  return s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+}
+
+function aiLabel(host: string): string {
+  const map: Record<string, string> = {
+    chatgpt: "ChatGPT",
+    perplexity: "Perplexity",
+    gemini: "Gemini",
+    bard: "Gemini",
+    claude: "Claude",
+    anthropic: "Claude",
+    copilot: "Copilot",
+    chat: "Copilot",
+    you: "You.com",
+    poe: "Poe",
+    meta: "Meta AI",
+    deepseek: "DeepSeek",
+    grok: "Grok",
+    x: "Grok",
+    aistudio: "AI Studio",
+    character: "Character.AI",
+    openai: "OpenAI",
+  };
+  const first = host.split(".")[0];
+  return map[first] ?? cap(first);
+}
+
+function searchLabel(host: string): string {
+  const head = host.split(".")[0];
+  if (/^google|^google\./.test(host)) return "Google";
+  const map: Record<string, string> = {
+    bing: "Bing",
+    duckduckgo: "DuckDuckGo",
+    yahoo: "Yahoo",
+    yandex: "Yandex",
+    ecosia: "Ecosia",
+    brave: "Brave",
+    baidu: "Baidu",
+  };
+  return map[head] ?? cap(head);
+}
+
+export function classifyProvider(
+  ref: string | undefined,
+  inApp: string | null
+): { kind: string; label: string } {
+  if (inApp) return { kind: "Social (in-app)", label: inApp.split(" ")[0] };
+  if (!ref) return { kind: "Direct", label: "Typed / bookmark / viewer" };
+  const host = hostOf(ref);
+  if (matches(AI_HOSTS, host)) return { kind: "AI assistant", label: aiLabel(host) };
+  if (matches(SEARCH_HOSTS, host)) return { kind: "Search", label: searchLabel(host) };
+  if (matches(SOCIAL_HOSTS, host)) return { kind: "Social (web)", label: cap(host.split(".")[0] || "") };
+  if (matches(EMAIL_HOSTS, host)) return { kind: "Email", label: cap(host.split(".")[0] || "") };
+  return { kind: "Other", label: host || "unknown" };
+}
+
+export function inAppBrowser(ua: string): string | null {
+  const rules: Array<[RegExp, string]> = [
+    [/instagram/i, "Instagram"],
+    [/fbav|fban|\bmessenger\b|com\.facebook/i, "Facebook"],
+    [/whatsapp/i, "WhatsApp"],
+    [/telegram/i, "Telegram"],
+    [/twitter|twitterandroid|[^\w]x\)?\s?\/|x-android|com\.twitter\.android/i, "X"],
+    [/youtubeapp|com\.google\.android\.youtube/i, "YouTube"],
+    [/tiktok/i, "TikTok"],
+    [/linkedinapp/i, "LinkedIn"],
+    [/safari$|safari\/|wkwebview/i, "In-app webview"],
+  ];
+  for (const [re, label] of rules) {
+    if (re.test(ua)) return label;
+  }
+  return null;
+}
+
+function detectOs(ua: string, chPlatform: string): string {
+  const p = chPlatform || "";
+  if (/windows/i.test(p)) return "Windows";
+  if (/ipad|ipod/i.test(ua)) return "iPadOS";
+  if (/iphone/i.test(ua) || /^ios/i.test(p)) return "iOS";
+  if (/mac/i.test(p) || /macintosh|mac os x/i.test(ua)) return "macOS";
+  if (/^android/i.test(p) || /android/i.test(ua)) return "Android";
+  if (/linux|cros/i.test(p) || /linux|x11|cros/i.test(ua)) return "Linux";
+  return "Unknown";
+}
+
+function detectDevice(ua: string, chMobile: string, os: string): string {
+  const u = ua.toLowerCase();
+  const isTablet =
+    /ipad|tablet|playbook|silk/i.test(u) || (/android/i.test(u) && !/mobi/i.test(u));
+  const isMobile =
+    /iphone|ipod|mobi|android.*mobile|blackberry|windows phone/i.test(u) ||
+    chMobile === "?1";
+  if (isTablet) return "Tablet";
+  if (isMobile) return "Mobile";
+  if (/win/i.test(os)) return "PC";
+  if (/mac/i.test(os)) return "Mac";
+  return "Laptop";
+}
+
+function detectBrowser(ua: string, chUa: string): string {
+  if (chUa) {
+    if (/Microsoft Edge/i.test(chUa)) return "Edge";
+    if (/Opera|OPR/i.test(chUa)) return "Opera";
+    if (/SamsungBrowser/i.test(chUa)) return "Samsung Internet";
+  }
+  if (/edg(e|aio)?\//i.test(ua)) return "Edge";
+  if (/opr\//i.test(ua)) return "Opera";
+  if (/\bcrios\b/i.test(ua)) return "Chrome (iOS)";
+  if (/\bfxios\b/i.test(ua)) return "Firefox (iOS)";
+  if (/samsungbrowser/i.test(ua)) return "Samsung Internet";
+  if (/chrome|crmo/i.test(ua)) return "Chrome";
+  if (/firefox/i.test(ua)) return "Firefox";
+  if (/safari/i.test(ua)) return "Safari";
+  return "Unknown";
+}
+
+function esc(s: unknown): string {
+  return String(s ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function clock(when: Date): { time: string; date: string } {
+  return {
+    time: when.toLocaleTimeString("en-IN", {
+      timeZone: "Asia/Kolkata",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    }),
+    date: when.toLocaleDateString("en-IN", {
+      timeZone: "Asia/Kolkata",
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    }),
+  };
+}
+
+export function buildViewMessage(b: PulsePayload, env: VisitEnv): string {
+  const { time, date } = clock(new Date());
+  const inApp = inAppBrowser(env.ua);
+  const os = detectOs(env.ua, env.chPlatform);
+  const cls = detectDevice(env.ua, env.chMobile, os);
+  const browser = inApp ? `${inApp} (in-app)` : detectBrowser(env.ua, env.chUa);
+  const prov = classifyProvider(b.r, inApp);
+
+  const geo = [env.country, env.region ? `(${env.region})` : null]
+    .filter(Boolean)
+    .join(" ");
+
+  const lines: string[] = [
+    `🟢 <b>NEW VISIT</b> · <code>${time}</code> · ${date}`,
+    `📍 <b>Page:</b> <code>${esc(b.p)}</code>`,
+    `🛰 <b>Via:</b> ${esc(prov.label)} <i>(${esc(prov.kind)})</i>`,
+    `📱 <b>Device:</b> ${esc(cls)} · <b>OS:</b> ${esc(os)}`,
+    `🌐 <b>Browser:</b> ${esc(browser)}`,
+  ];
+  if (b.sw) lines.push(`🖥 <b>Screen:</b> ${b.sw}×${b.sh ?? "?"} @${b.dpr ?? 1}x`);
+  lines.push(`🌍 <b>Geo:</b> ${esc(geo || "Unknown")} · IP <code>${esc(env.ip)}</code>`);
+  if (b.lang) {
+    lines.push(`🔤 <b>Lang:</b> ${esc(b.lang)}${b.tz ? ` · <b>TZ:</b> ${esc(b.tz)}` : ""}`);
+  }
+  if (b.r) lines.push(`🔗 <b>Ref:</b> <code>${esc(b.r.slice(0, 160))}</code>`);
+  if (b.u) lines.push(`🧩 <b>UTM:</b> <code>${esc(b.u)}</code>`);
+  if (b.sid) lines.push(`🏷 <b>Sess:</b> <code>${esc(b.sid.slice(0, 8))}</code>`);
+
+  return lines.filter(Boolean).join("\n");
+}
+
+export function buildEventMessage(b: PulsePayload, env: VisitEnv): string {
+  const { time } = clock(new Date());
+  const os = detectOs(env.ua, env.chPlatform);
+  const cls = detectDevice(env.ua, env.chMobile, os);
+  const isSection = b.e === "section";
+  const label = isSection
+    ? `${cap(b.a || "")} section`.trim()
+    : esc(b.a || "Action");
+  const icon = isSection ? "📖" : "🎯";
+  return `${icon} <b>${esc(label)}</b> — <code>${esc(b.p)}</code> · ${esc(cls)} · <code>${time}</code>`;
+}
