@@ -276,7 +276,7 @@ export function classifyProvider(
 
 function detectOs(ua: string, chPlatform: string): string {
   const p = chPlatform || "";
-  if (/windows/i.test(p)) return "Windows";
+  if (/windows/i.test(p) || /win\d*\s*nt|windows/i.test(ua)) return "Windows";
   if (/ipad|ipod/i.test(ua)) return "iPadOS";
   if (/iphone/i.test(ua) || /^ios/i.test(p)) return "iOS";
   if (/mac/i.test(p) || /macintosh|mac os x/i.test(ua)) return "macOS";
@@ -358,36 +358,51 @@ export function buildViewMessage(b: PulsePayload, env: VisitEnv): string {
   const browser = inApp ? "In-app browser" : detectBrowser(env.ua, env.chUa);
   const prov = classifyProvider(b.r, inApp, b.u);
   const model = deviceModel(env.ua, cls);
+  const div = "═".repeat(28);
 
   const geo = [env.city, env.region, env.country].filter(Boolean).join(", ");
+  const device = [cls, model].filter(Boolean).join(" · ");
+  const via = `${esc(prov.label)} <i>(${esc(prov.kind)})</i>`;
 
   const lines: string[] = [
+    div,
     `🟢 <b>NEW VISIT</b> · <code>${time}</code> · ${date}`,
+    div,
+    ``,
     `📍 <b>Page:</b> <code>${esc(b.p)}</code>`,
-    `🛰 <b>Via:</b> ${esc(prov.label)} <i>(${esc(prov.kind)})</i>`,
-    `📱 <b>Device:</b> ${esc(cls)}${model ? ` (${esc(model)})` : ""} · <b>OS:</b> ${esc(os)}`,
-    `🌐 <b>Browser:</b> ${esc(browser)}`,
+    ``,
+    `🛰 <b>Via:</b> ${via}`,
+    `📱 <b>Device:</b> <code>${esc(device)}</code>`,
+    `🤖 <b>OS:</b> <code>${esc(os)}</code>`,
+    `🌐 <b>Browser:</b> <code>${esc(browser)}</code>`,
   ];
-  if (b.sw) lines.push(`🖥 <b>Screen:</b> ${b.sw}×${b.sh ?? "?"} @${b.dpr ?? 1}x`);
-  if (b.vw && b.vh) lines.push(`🪟 <b>Viewport:</b> ${b.vw}×${b.vh}`);
-  const geoEnc = esc(geo || "Unknown");
-  lines.push(
-    `🌍 <b>Geo:</b> ${geoEnc}${env.city ? " (city-level)" : ""} · IP <code>${esc(env.ip)}</code>`
-  );
+  if (b.sw) {
+    const screen = `${b.sw}×${b.sh ?? "?"} @${b.dpr ?? 1}x`;
+    lines.push(`🖥 <b>Screen:</b> <code>${screen}</code>${b.vw && b.vh ? ` · Viewport <code>${b.vw}×${b.vh}</code>` : ""}`);
+  }
+  lines.push(``, `🌍 <b>Geo:</b> <code>${esc(geo || "Unknown")}</code>${env.city ? " <i>(city-level)</i>" : ""}`);
   if (env.lat && env.lon) {
-    lines.push(`📍 <b>Coords:</b> <code>${esc(env.lat)}, ${esc(env.lon)}</code>`);
+    lines.push(`📌 <b>Coords:</b> <code>${esc(env.lat)}, ${esc(env.lon)}</code>`);
   }
-  if (env.ipTz) {
-    lines.push(`🗺 <b>IP TZ:</b> ${esc(env.ipTz)}`);
-  }
+  lines.push(`💾 <b>IP:</b> <code>${esc(env.ip)}</code>`);
   if (b.lang) {
-    lines.push(`🔤 <b>Lang:</b> ${esc(b.lang)}${b.tz ? ` · <b>TZ:</b> ${esc(b.tz)}` : ""}`);
+    lines.push(`🔤 <b>Lang:</b> <code>${esc(b.lang)}</code>${b.tz ? ` · <b>TZ:</b> <code>${esc(b.tz)}</code>` : ""}`);
   }
-  if (b.r) lines.push(`🔗 <b>Ref:</b> <code>${esc(b.r.slice(0, 160))}</code>`);
-  if (b.u) lines.push(`🧩 <b>UTM:</b> <code>${esc(b.u)}</code>`);
-  if (b.sid) lines.push(`🏷 <b>Sess:</b> <code>${esc(b.sid.slice(0, 8))}</code>`);
+  if (env.ipTz && env.ipTz !== b.tz) {
+    lines.push(`🗺 <b>IP TZ:</b> <code>${esc(env.ipTz)}</code>`);
+  }
+  if (b.r) {
+    lines.push(`🔗 <b>Ref:</b> <code>${esc(b.r.slice(0, 140))}</code>`);
+  }
+  if (b.u) {
+    lines.push(`🧩 <b>UTM:</b> <code>${esc(b.u)}</code>`);
+  }
+  if (b.sid) {
+    lines.push(`🏷 <b>Sess:</b> <code>${esc(b.sid.slice(0, 8))}</code>`);
+  }
+  lines.push(``, div);
 
-  return lines.filter(Boolean).join("\n");
+  return lines.join("\n");
 }
 
 export function buildEventMessage(b: PulsePayload, env: VisitEnv): string {
